@@ -1,0 +1,24 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans"
+	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:jaxws="http://cxf.apache.org/jaxws"
+	xsi:schemaLocation=" http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans-4.1.xsd http://cxf.apache.org/jaxws http://cxf.apache.org/schemas/jaxws.xsd">
+	<!-- 初始化CXFServlet，如果有配置具体服务的话，可以省略 -->
+	<import resource="classpath:META-INF/cxf/cxf.xml" />
+	<import resource="classpath:META-INF/cxf/cxf-servlet.xml" />
+	
+	<!-- 配置cxf的WebService服务 
+	 jaxws:server相当于：org.apache.cxf.jaxws.support.JaxWsServerFactoryBean+bean
+		address:发布的服务地址(服务名字)
+		serviceClass:sei接口的类型
+	-->
+	<jaxws:server address="/mobile" serviceClass="cn.itcast.cxf.server.MobileAddressService">
+		<!-- sei处理对象 0-->
+		<jaxws:serviceBean>
+			<ref bean="mobileAddressService"/>
+		</jaxws:serviceBean>
+	</jaxws:server>
+	
+	<!-- service -->
+	<bean id="mobileAddressService" class="cn.itcast.cxf.server.MobileAddressServiceImpl"></bean>
+	
+</beans>
